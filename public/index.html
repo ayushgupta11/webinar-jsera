@@ -8,7 +8,18 @@
    
     <title>Timezone</title>
     
-   
+    <!-- pwa support -->
+    <link rel="manifest" href="manifest.json" />
+    <!-- ios support -->
+    <link rel="apple-touch-icon" href="images/icons/android-launchericon-72-72.png" />
+    <link rel="apple-touch-icon" href="images/icons/android-launchericon-96-96.png" />
+    <link rel="apple-touch-icon" href="images/icons/android-launchericon-48-48.png" />
+    <link rel="apple-touch-icon" href="images/icons/android-launchericon-144-144.png" />
+    <link rel="apple-touch-icon" href="images/icons/android-launchericon-192-192.png" />
+    <link rel="apple-touch-icon" href="images/icons/android-launchericon-512-512.png" />
+    <meta name="apple-mobile-web-app-status-bar" content="#000" />
+    <meta name="theme-color" content="#000" />
+    <!-- ends -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i" rel="stylesheet">
     <link href="css/bootstrap.css" rel="stylesheet">
@@ -19,6 +30,8 @@
     <link href="https://raw.githubusercontent.com/daneden/animate.css/master/animate.css" rel="stylesheet">
 	
     <link rel="icon"  href="images/favicon.png">
+    <script src="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.6.1/firebase-ui-auth.css" />
 </head>
 <body data-spy="scroll" data-target=".fixed-top">
     
@@ -28,6 +41,21 @@
             <div class="bounce1"></div>
             <div class="bounce2"></div>
             <div class="bounce3"></div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body" id="firebaseui-auth-container">
+            </div>
+        </div>
         </div>
     </div>
     
@@ -65,6 +93,9 @@
 
                 <li class="nav-item">
                     <a class="nav-link page-scroll" href="#contact">CONTACT</a>
+                </li>
+                <li class="nav-item" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal">
+                    <a class="nav-link">LOGIN/ SIGNUP</a>
                 </li>
             </ul>
             <span class="nav-item social-icons">
@@ -1092,7 +1123,23 @@
     </div> <!-- end of copyright --> 
     <!-- end of copyright -->
     
-    	
+        
+    <!-- firebase scripts -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="/__/firebase/7.23.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="/__/firebase/7.23.0/firebase-analytics.js"></script>
+
+    <!-- firebase auth -->
+    <script src="/__/firebase/7.22.1/firebase-auth.js"></script>
+
+    <!-- Initialize Firebase -->
+    <script src="/__/firebase/init.js"></script>
+    <script src="./js/init-firebase.js"></script>
+    <!-- ends -->
+
     <!-- Scripts -->
   
     <script src="./index.js"></script>
@@ -1143,12 +1190,16 @@ $(".colour-value span").click(function(){
           "border-color": $(this).attr("data-color")
         });
       });
-
-
-
-
-
-      
+    </script>
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", function() {
+                navigator.serviceWorker
+                .register("./serviceWorker.js")
+                .then(res => console.log("service worker registered"))
+                .catch(err => console.log("service worker not registered", err))
+            })
+        }
     </script>
 </body>
 </html>
